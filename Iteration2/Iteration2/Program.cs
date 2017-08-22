@@ -13,74 +13,17 @@ namespace Iteration2
     {
         static void Main(string[] args)
         {
-
             API api = new API("http://data.metromobilite.fr/api/linesNear/json?x=5.726763010025024&y=45.18528852941346&dist=700&details=true");
-            string json = api.GetJSonFromApi();
-
-            List<Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
+            List<Transport> transports = api.GetJSonFromApi();
 
             Utils util = new Utils();
-            List<Transport> nameStations = util.getUniqueStation(transports);
 
-            //foreach (Transport t in nameStations)
-            //{
-            //    Console.WriteLine(t.Name);
-            //}
+            List<Transport> nameStations = util.getUniqueStationAndAllLines(transports);
 
-
-            //get namestation unique
-            //foreach (Transport transport in transports)
-            //{
-            //    Boolean alreadyPresent = false;
-            //    foreach (Transport nameStation in nameStations)
-            //    {
-            //        if (transport.Name.Equals(nameStation.Name))
-            //        {
-            //            alreadyPresent = true;
-            //        }
-            //    }
-            //    if (!alreadyPresent)
-            //    {
-            //        nameStations.Add(transport);
-            //    }
-            //}
-
-            List<Transport> listOrderByStation = new List<Transport>();
-            List<List<Transport>> listAllDistinct = new List<List<Transport>>();
-
-            foreach (Transport nameStation in nameStations)
+            foreach(Transport transport in nameStations)
             {
-                Console.WriteLine(nameStation.Name);
-                List<String> lines = new List<string>();
-                foreach (Transport transport in transports)
-                {
-                    if (transport.Name.Equals(nameStation.Name))
-                    {
-                        foreach (String line in transport.Lines)
-                        {
-                            if (!lines.Contains(line))
-                            {
-                                lines.Add(line);
-                            }
-                        }
-                    }
-                }
-
-                Transport completeTransport = new Transport();
-                completeTransport.Id = nameStation.Id;
-                completeTransport.Name = nameStation.Name;
-                completeTransport.Lon = nameStation.Lon;
-                completeTransport.Lat = nameStation.Lat;
-                completeTransport.Lines = lines;
-
-                listOrderByStation.Add(completeTransport);
+                Console.WriteLine(transport.DisplayAll());
             }
-
-            foreach(Transport transport in listOrderByStation)
-            {
-                transport.DisplayAll();
-            }
-
         }
     }
 }

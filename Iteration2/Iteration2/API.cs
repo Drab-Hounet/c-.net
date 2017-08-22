@@ -18,7 +18,7 @@ namespace Iteration2
             this.adressApi = adressApi;
         }
 
-        public String GetJSonFromApi()
+        public List<Transport> GetJSonFromApi()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             WebRequest request = WebRequest.Create(adressApi);
@@ -29,7 +29,10 @@ namespace Iteration2
             string json = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            return json;
+
+            List<Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
+
+            return transports;
         }
     }
 }

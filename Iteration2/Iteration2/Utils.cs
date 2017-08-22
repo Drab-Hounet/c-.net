@@ -28,5 +28,39 @@ namespace Iteration2
             }
             return nameStations;
         }
+
+        public List<Transport> getUniqueStationAndAllLines(List<Transport> transports)
+        {
+            List<Transport> listOrderByStation = new List<Transport>();
+            List<Transport> nameStations = getUniqueStation(transports);
+            foreach (Transport nameStation in nameStations)
+            {
+                List<String> lines = new List<string>();
+                foreach (Transport transport in transports)
+                {
+                    if (transport.Name.Equals(nameStation.Name))
+                    {
+                        foreach (String line in transport.Lines)
+                        {
+                            if (!lines.Contains(line))
+                            {
+                                lines.Add(line);
+                            }
+                        }
+                    }
+                }
+
+                Transport completeTransport = new Transport();
+                completeTransport.Id = nameStation.Id;
+                completeTransport.Name = nameStation.Name;
+                completeTransport.Lon = nameStation.Lon;
+                completeTransport.Lat = nameStation.Lat;
+                completeTransport.Lines = lines;
+
+                listOrderByStation.Add(completeTransport);
+
+            }
+            return listOrderByStation;
+        }
     }
 }

@@ -14,17 +14,25 @@ namespace Iteration2
         public double Lat { get; set; }
         public List<string> Lines { get; set; }
 
-        public void DisplayAll()
+        public String DisplayAll()
         {
-            Console.WriteLine("ID : " + Id);
-            Console.WriteLine("NAME : " + Name);
-            Console.WriteLine("COORDONNEE : " + Lon + " - " + Lat);
-            Console.WriteLine("LINES : ");
+            //Console.WriteLine("ID : " + Id);
+            //Console.WriteLine("NAME : " + Name);
+            //Console.WriteLine("COORDONNEE : " + Lon + " - " + Lat);
+            //Console.WriteLine("LINES : ");
+
+            String detailTransport = Id + 
+                "\nNAME : " + Name +
+                "\nCOORDONNEE : " + Lon + " - " + Lat + 
+                "\nLIGINE : ";
+
 
             foreach (String line in Lines)
             {
-                Console.WriteLine(line);
+                detailTransport += line + " - ";
             }
+            return detailTransport;
+
         }
     }
 }
