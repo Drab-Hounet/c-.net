@@ -16,20 +16,21 @@ namespace Iteration2
 
         public String DisplayAll()
         {
-            //Console.WriteLine("ID : " + Id);
-            //Console.WriteLine("NAME : " + Name);
-            //Console.WriteLine("COORDONNEE : " + Lon + " - " + Lat);
-            //Console.WriteLine("LINES : ");
-
-            String detailTransport = Id + 
+            String detailTransport = 
                 "\nNAME : " + Name +
                 "\nCOORDONNEE : " + Lon + " - " + Lat + 
-                "\nLIGINE : ";
-
+                "\nLIGNE : ";
 
             foreach (String line in Lines)
             {
-                detailTransport += line + " - ";
+                API api1 = new API("https://data.metromobilite.fr/api/routers/default/index/routes?codes=" + line);
+                List<Line> lines = api1.GetJSonFromApiLine();
+                Line lineObject = lines.First();
+
+                detailTransport += "\n" + lineObject.longName +  "\n" +
+                                   lineObject.mode + "\n" + 
+                                   lineObject.type + "\n" + 
+                                   "-------------------\n";
             }
             return detailTransport;
 

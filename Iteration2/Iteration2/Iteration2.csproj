@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Transport.cs" />
     <Compile Include="Program.cs" />

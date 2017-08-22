@@ -14,7 +14,7 @@ namespace Iteration2
         static void Main(string[] args)
         {
             API api = new API("http://data.metromobilite.fr/api/linesNear/json?x=5.726763010025024&y=45.18528852941346&dist=700&details=true");
-            List<Transport> transports = api.GetJSonFromApi();
+            List<Transport> transports = api.GetJSonFromApiTransport();
 
             Utils util = new Utils();
 
