@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Net;
 
-namespace Iteration2
+namespace Library
 {
-    class API
+    public class API
     {
         public string adressApi { get; set; }
 

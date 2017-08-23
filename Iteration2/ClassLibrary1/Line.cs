@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Iteration2
+namespace Library
 {
-    class Line
+    public class Line
     {
         public string id { get; set; }
         public string shortName { get; set; }

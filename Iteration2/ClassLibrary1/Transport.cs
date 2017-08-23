@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Iteration2
+namespace Library
 {
-    class Transport
+    public class Transport
     {
         public string Id { get; set; }
         public string Name { get; set; }

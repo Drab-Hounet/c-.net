@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Iteration2
+namespace Library
 {
-    class Utils
+    public class Utils
     {
         public List<Transport> getUniqueStation(List<Transport> transports)
         {
