@@ -29,13 +29,14 @@ namespace Library
             return nameStations;
         }
 
-        public List<Transport> getUniqueStationAndAllLines(List<Transport> transports)
+        public List<TransportComplete> getUniqueStationAndAllLines(List<Transport> transports)
         {
-            List<Transport> listOrderByStation = new List<Transport>();
+            List<TransportComplete> listOrderByStation = new List<TransportComplete>();
             List<Transport> nameStations = getUniqueStation(transports);
             foreach (Transport nameStation in nameStations)
             {
                 List<String> lines = new List<string>();
+                List<Line> linesDetails = new List<Line>();
                 foreach (Transport transport in transports)
                 {
                     if (transport.Name.Equals(nameStation.Name))
@@ -44,23 +45,25 @@ namespace Library
                         {
                             if (!lines.Contains(line))
                             {
+                                API apiLine = new API();
+                                Line lineObject = apiLine.GetAllLineFromJson(line);
+                                linesDetails.Add(lineObject);
                                 lines.Add(line);
                             }
                         }
                     }
                 }
-
-                Transport completeTransport = new Transport();
+                TransportComplete completeTransport = new TransportComplete();
                 completeTransport.Id = nameStation.Id;
                 completeTransport.Name = nameStation.Name;
                 completeTransport.Lon = nameStation.Lon;
                 completeTransport.Lat = nameStation.Lat;
-                completeTransport.Lines = lines;
+                completeTransport.LinesDetails = linesDetails;
 
                 listOrderByStation.Add(completeTransport);
-
             }
             return listOrderByStation;
         }
+
     }
 }

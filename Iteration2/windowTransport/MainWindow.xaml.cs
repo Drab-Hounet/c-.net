@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace tutoMVVM
+namespace windowTransport
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
@@ -23,15 +23,6 @@ namespace tutoMVVM
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void StudentViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            tutoMVVM.ViewModel.StudentViewModel studentViewModelObject =
-               new tutoMVVM.ViewModel.StudentViewModel();
-            studentViewModelObject.LoadStudents();
-
-            StudentViewControl.DataContext = studentViewModelObject;
         }
     }
 }

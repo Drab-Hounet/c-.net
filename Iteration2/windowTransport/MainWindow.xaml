@@ -1,13 +1,12 @@
-﻿<Window x:Class="tutoMVVM.MainWindow"
+﻿<Window x:Class="windowTransport.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:tutoMVVM"
-        xmlns:views="clr-namespace:tutoMVVM.Views"
+        xmlns:local="clr-namespace:windowTransport"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <views:StudentView x:Name = "StudentViewControl" Loaded = "StudentViewControl_Loaded" BorderBrush="White" Background="#FF3F5CAA" Foreground="White" FontFamily="Trebuchet MS"/>
+        
     </Grid>
 </Window>

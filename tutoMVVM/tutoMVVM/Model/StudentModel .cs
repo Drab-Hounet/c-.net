@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MVVMDemo.Model
+namespace tutoMVVM.Model
 {
 
     public class StudentModel { }

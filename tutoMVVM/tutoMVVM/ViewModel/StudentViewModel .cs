@@ -1,7 +1,7 @@
-﻿using MVVMDemo.Model;
+﻿using tutoMVVM.Model;
 using System.Collections.ObjectModel;
 
-namespace MVVMDemo.ViewModel
+namespace tutoMVVM.ViewModel
 {
 
     public class StudentViewModel
@@ -17,7 +17,7 @@ namespace MVVMDemo.ViewModel
         {
             ObservableCollection<Student> students = new ObservableCollection<Student>();
 
-            students.Add(new Student { FirstName = "Mark", LastName = "Allain" });
+            students.Add(new Student { FirstName = "Boris", LastName = "Allain" });
             students.Add(new Student { FirstName = "Allen", LastName = "Brown" });
             students.Add(new Student { FirstName = "Linda", LastName = "Hamerski" });
 

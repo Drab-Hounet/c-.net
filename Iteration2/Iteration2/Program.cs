@@ -6,27 +6,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Library;
+using System.Diagnostics;
 
-namespace Iteration2
+namespace Library
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Class1 test = new Class1();
+            API api = new API();
+            List<TransportComplete> transports = api.GetAllTransportFromJson(5.726763010025024, 45.18528852941346, 700);
 
-            API api = new API("http://data.metromobilite.fr/api/linesNear/json?x=5.726763010025024&y=45.18528852941346&dist=700&details=true");
-            List<Transport> transports = api.GetJSonFromApiTransport();
-
-            Utils util = new Utils();
-
-            List<Transport> nameStations = util.getUniqueStationAndAllLines(transports);
-
-            foreach(Transport transport in nameStations)
+            foreach(TransportComplete transport in transports)
             {
-                Console.WriteLine(transport.DisplayAll());
+                Console.WriteLine(  "\nNAME : " + transport.Name +
+                                    "\nCOORDONNEE : " + transport.Lon + " - " + transport.Lat +
+                                    "\nLIGNE : ");
+
+                foreach (Line line in transport.LinesDetails)
+                {
+                    Console.WriteLine(  line.longName + "\n" +
+                                        line.mode + "\n" +
+                                        line.type + "\n" +
+                                        "-------------------\n");
+                }
             }
+
+            Console.ReadLine();
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iteration2", "Iteration2\It
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "ClassLibrary1\Library.csproj", "{91D76DDB-E3B4-4440-BA42-3C00047D5507}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowTransport", "windowTransport\WindowTransport.csproj", "{70102C86-7B96-4A2A-B804-AB4A68A31FB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{91D76DDB-E3B4-4440-BA42-3C00047D5507}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D76DDB-E3B4-4440-BA42-3C00047D5507}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91D76DDB-E3B4-4440-BA42-3C00047D5507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70102C86-7B96-4A2A-B804-AB4A68A31FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70102C86-7B96-4A2A-B804-AB4A68A31FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70102C86-7B96-4A2A-B804-AB4A68A31FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70102C86-7B96-4A2A-B804-AB4A68A31FB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
