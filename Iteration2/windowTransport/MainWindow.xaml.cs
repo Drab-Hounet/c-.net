@@ -18,11 +18,20 @@ namespace windowTransport
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void TransportViewControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            windowTransport.ViewModel.TransportViewModel transportViewModelObject = new windowTransport.ViewModel.TransportViewModel();
+            transportViewModelObject.LoadTransport();
+
+            TransportViewControl.DataContext = transportViewModelObject;
+        }              
     }
 }

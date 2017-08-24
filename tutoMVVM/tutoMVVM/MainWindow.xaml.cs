@@ -27,8 +27,7 @@ namespace tutoMVVM
 
         private void StudentViewControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tutoMVVM.ViewModel.StudentViewModel studentViewModelObject =
-               new tutoMVVM.ViewModel.StudentViewModel();
+            tutoMVVM.ViewModel.StudentViewModel studentViewModelObject = new tutoMVVM.ViewModel.StudentViewModel();
             studentViewModelObject.LoadStudents();
 
             StudentViewControl.DataContext = studentViewModelObject;

@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:windowTransport"
+        xmlns:views = "clr-namespace:windowTransport.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Liste des arrêts" Height="Auto" Width="1000" ResizeMode="NoResize">
     <Grid>
-        
+        <views:TransportView x:Name = "TransportViewControl" Loaded = "TransportViewControl_Loaded"/>
     </Grid>
 </Window>
