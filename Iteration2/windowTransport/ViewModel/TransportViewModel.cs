@@ -22,7 +22,7 @@ namespace windowTransport.ViewModel
             ObservableCollection<Transport_model> transports = new ObservableCollection<Transport_model>();
             Transport transport = new Transport();
             API api = new API();
-            List<TransportComplete> listTransports = api.GetAllTransportFromJson(5.726763010025024, 45.18528852941346, 700);
+            List<TransportComplete> listTransports = api.GetAllTransportFromJson(5.63118, 45.287448, 700);
 
             foreach (TransportComplete tsprt in listTransports)
             {
