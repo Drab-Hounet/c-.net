@@ -76,8 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Converter\ConverterToColor.cs" />
     <Compile Include="Converter\Substring.cs" />
+    <Compile Include="Model\CoordinateModel.cs" />
     <Compile Include="ViewModel\TransportViewModel.cs" />
     <Compile Include="Views\TransportView.xaml.cs">
       <DependentUpon>TransportView.xaml</DependentUpon>
