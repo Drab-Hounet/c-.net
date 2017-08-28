@@ -22,9 +22,9 @@ namespace windowTransport.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private String lat;
+        private Double lat;
 
-        public String Lat
+        public Double Lat
         {
             get
             {
@@ -40,9 +40,9 @@ namespace windowTransport.ViewModel
                 }
             }
         }
-        private String longitude;
+        private Double longitude;
 
-        public String Longitude
+        public Double Longitude
         {
             get
             {
@@ -58,9 +58,9 @@ namespace windowTransport.ViewModel
                 }
             }
         }
-        private String dist;
+        private Double dist;
 
-        public String Dist
+        public Double Dist
         {
             get
             {
@@ -109,11 +109,10 @@ namespace windowTransport.ViewModel
         public void ChangeCanExecute(object obj)
         {
             TransportsObservable = null;
-            Debug.WriteLine("coucou");
             Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
 
+            listTransports = api.GetAllTransportFromJson(Lat, Longitude, Dist);
 
-            listTransports = api.GetAllTransportFromJson(5.63118, 45.287448, 1000);
             transports.Clear();
             foreach (TransportComplete tsprt in listTransports)
             {
@@ -149,6 +148,5 @@ namespace windowTransport.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
-
     }
 }

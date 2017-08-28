@@ -17,7 +17,7 @@ namespace Library
         public String adressApiTransports = "http://data.metromobilite.fr/api/linesNear/json?x=";
         public String adressApiLines =      "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
 
-        public List<TransportComplete> GetAllTransportFromJson(Double lat, Double lng, Double dist)
+        public List<TransportComplete> GetAllTransportFromJson(Double lng, Double lat, Double dist)
         {
 
             String latString = lat.ToString(CultureInfo.InvariantCulture);
