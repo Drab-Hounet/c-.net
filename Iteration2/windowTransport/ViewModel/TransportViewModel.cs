@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Windows.Input;
 using windowTransport.Command;
 using System.ComponentModel;
+using Microsoft.Maps.MapControl.WPF;
+
 
 
 namespace windowTransport.ViewModel
@@ -40,20 +42,20 @@ namespace windowTransport.ViewModel
                 }
             }
         }
-        private Double longitude;
+        private Double lon;
 
         public Double Longitude
         {
             get
             {
-                return longitude;
+                return lon;
             }
 
             set
             {
-                if (longitude != value)
+                if (lon != value)
                 {
-                    longitude = value;
+                    lon = value;
                     RaisePropertyChanged("Longitude");
                 }
             }
@@ -77,12 +79,37 @@ namespace windowTransport.ViewModel
             }
         }
 
+        private Location locationMap;
+
+        public Location LocationMap
+        {
+            get
+            {
+                return locationMap;
+            }
+
+            set
+            {
+                if (locationMap != value)
+                {
+                    locationMap = value;
+                    RaisePropertyChanged("LocationMap");
+                }
+
+            }
+        }
+
 
         private ICommand GetcoordinatesGPS { get; set; }
+        private ICommand Test { get; set; }
+
+
 
         public TransportViewModel()
         {
-            GetcoordinatesGPS = new RelayCommand(ChangeCanExecute);
+            Test = new RelayCommand(MapExecute);
+            GetcoordinatesGPS = new RelayCommand(FormExecute);
+
         }
 
         public bool CanExecute
@@ -95,7 +122,7 @@ namespace windowTransport.ViewModel
             set { }
         }
 
-        public ICommand ToggleExecuteCommand
+        public ICommand ValidationForm
         {
             get
             {
@@ -106,7 +133,18 @@ namespace windowTransport.ViewModel
             }
         }
 
-        public void ChangeCanExecute(object obj)
+        public ICommand DoubleClickPos
+        {
+            get
+            {
+                return Test;
+            }
+            set
+            {
+            }
+        }
+
+        public void FormExecute(object obj)
         {
             TransportsObservable = null;
             Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
@@ -121,6 +159,13 @@ namespace windowTransport.ViewModel
             TransportsObservable = transports;
         }
 
+        public void MapExecute(object obj)
+        {
+            Debug.WriteLine("map");
+            Debug.WriteLine(obj);
+
+        }
+
         public ObservableCollection<Transport_model> TransportsObservable
         {
             get;
@@ -129,15 +174,19 @@ namespace windowTransport.ViewModel
 
         public void LoadTransport()
         {
-            List<TransportComplete> listTransports;
-            Transport transport = new Transport();
-            listTransports = api.GetAllTransportFromJson(5.63118, 45.287448, 700);
+            Lat = 45.185697;
+            Longitude = 5.728726;
+            Dist = 200;
+            TransportsObservable = null;
+            Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
 
+            listTransports = api.GetAllTransportFromJson(Lat, Longitude, Dist);
+
+            transports.Clear();
             foreach (TransportComplete tsprt in listTransports)
             {
                 transports.Add(new Transport_model { Name = tsprt.Name, ListLines = tsprt.LinesDetails });
             }
-
             TransportsObservable = transports;
         }
 
