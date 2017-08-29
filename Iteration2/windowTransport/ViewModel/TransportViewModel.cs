@@ -12,8 +12,6 @@ using windowTransport.Command;
 using System.ComponentModel;
 using Microsoft.Maps.MapControl.WPF;
 
-
-
 namespace windowTransport.ViewModel
 {
     class TransportViewModel : INotifyPropertyChanged
@@ -23,6 +21,25 @@ namespace windowTransport.ViewModel
         public ObservableCollection<Transport_model> transports = new ObservableCollection<Transport_model>();
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private Location center;
+
+        public Location Center
+        {
+            get
+            {
+                return center;
+            }
+
+            set
+            {
+                if (center != value)
+                {
+                    center = value;
+                    RaisePropertyChanged("Center");
+                }
+            }
+        }
 
         private Double lat;
 
@@ -79,37 +96,14 @@ namespace windowTransport.ViewModel
             }
         }
 
-        private Location locationMap;
 
-        public Location LocationMap
-        {
-            get
-            {
-                return locationMap;
-            }
-
-            set
-            {
-                if (locationMap != value)
-                {
-                    locationMap = value;
-                    RaisePropertyChanged("LocationMap");
-                }
-
-            }
-        }
-
-
-        private ICommand GetcoordinatesGPS { get; set; }
-        private ICommand Test { get; set; }
-
-
+        private ICommand RelayForm { get; set; }
+        private ICommand RelayMap { get; set; }
 
         public TransportViewModel()
         {
-            Test = new RelayCommand(MapExecute);
-            GetcoordinatesGPS = new RelayCommand(FormExecute);
-
+            RelayMap = new RelayCommand(MapExecute);
+            RelayForm = new RelayCommand(FormExecute);
         }
 
         public bool CanExecute
@@ -126,7 +120,7 @@ namespace windowTransport.ViewModel
         {
             get
             {
-                return GetcoordinatesGPS;
+                return RelayForm;
             }
             set
             {
@@ -137,33 +131,24 @@ namespace windowTransport.ViewModel
         {
             get
             {
-                return Test;
+                return RelayMap;
             }
-            set
-            {
-            }
+            set { }
         }
 
         public void FormExecute(object obj)
         {
             TransportsObservable = null;
             Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
+            Center = new Location(Lat, Longitude);
 
-            listTransports = api.GetAllTransportFromJson(Lat, Longitude, Dist);
-
-            transports.Clear();
-            foreach (TransportComplete tsprt in listTransports)
-            {
-                transports.Add(new Transport_model { Name = tsprt.Name, ListLines = tsprt.LinesDetails });
-            }
-            TransportsObservable = transports;
+            CallApi(Lat, Longitude, Dist);
         }
 
         public void MapExecute(object obj)
         {
             Debug.WriteLine("map");
-            Debug.WriteLine(obj);
-
+            CallApi(Center.Latitude, Center.Longitude, 300);
         }
 
         public ObservableCollection<Transport_model> TransportsObservable
@@ -174,9 +159,15 @@ namespace windowTransport.ViewModel
 
         public void LoadTransport()
         {
-            Lat = 45.185697;
-            Longitude = 5.728726;
-            Dist = 200;
+            CallApi(45.185697, 5.728726, 200);
+            Center = new Location(45.263214, 5.647057);
+        }
+
+        private void CallApi(Double latp, Double longp, Double Distp)
+        {
+            Lat = latp;
+            Longitude = longp;
+            Dist = Distp;
             TransportsObservable = null;
             Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
 
