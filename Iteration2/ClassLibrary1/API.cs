@@ -25,7 +25,6 @@ namespace Library
 
         public List<TransportComplete> GetAllTransportFromJson(Double lng, Double lat, Double dist)
         {
-
             String latString = lat.ToString(CultureInfo.InvariantCulture);
             String lngString = lng.ToString(CultureInfo.InvariantCulture);
             String json = GetRequestProvider().DoRequest((adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true"));

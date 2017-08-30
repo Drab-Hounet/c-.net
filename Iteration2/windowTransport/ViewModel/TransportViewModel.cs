@@ -102,9 +102,7 @@ namespace windowTransport.ViewModel
             {
                 return RelayForm;
             }
-            set
-            {
-            }
+            set { }
         }
 
         public ICommand DoubleClickPos
@@ -126,8 +124,9 @@ namespace windowTransport.ViewModel
         public void MapExecute(object obj)
         {
             Location location = obj as Location;
-            this.Lat = location.Latitude;
-            this.Longitude = location.Longitude;
+            Lat = location.Latitude;
+            Longitude = location.Longitude;
+            CallApi(Lat, Longitude, 300);
         }
 
         public ObservableCollection<Transport_model> TransportsObservable

@@ -12,11 +12,11 @@ namespace Library.Providers
         {
             if (adressApi.Contains(API.adressApiLines))
             {
-                return "";
+                return @"[{""id"": ""SEM: 12"",""shortName"": ""12"",""longName"": ""Eybens Maisons Neuves / Saint-Martin-d'Hères Les Alloves"", ""color"": ""0f9930"",""textColor"": ""FFFFFF"",""mode"": ""BUS"",""type"": ""PROXIMO""}]";
             }
             else if (adressApi.Contains(API.adressApiTransports))
             {
-                return @"[{id: ""C38: 12818"",name: ""GRENOBLE, ALLIES"",lon: 5.71403,lat: 45.17338,lines: [""C38: EXP3"",""C38: 4110"",""C38: 4100"",""C38: 4101"",""C38: 3000"",""C38: 4500""]}]";
+                return @"[{id: ""C38: 12818"",name: ""GRENOBLE, FAKE STATION"",lon: 5.71403,lat: 45.17338,lines: [""C38: EXP3""]}]";
             }
 
             return string.Empty;
