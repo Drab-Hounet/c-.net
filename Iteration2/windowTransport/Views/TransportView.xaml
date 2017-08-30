@@ -80,7 +80,7 @@
             </StackPanel>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment = "Left" >
 
                 <ItemsControl ItemsSource = "{Binding TransportsObservable}" Margin="0 30 0 0">

@@ -148,7 +148,7 @@ namespace windowTransport.ViewModel
         public void MapExecute(object obj)
         {
             Debug.WriteLine("map");
-            CallApi(Center.Latitude, Center.Longitude, 300);
+            CallApi(Center.Latitude, Center.Longitude, 500);
         }
 
         public ObservableCollection<Transport_model> TransportsObservable

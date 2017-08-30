@@ -14,7 +14,14 @@ namespace windowTransport.Converter
         {
             String text = (String) value;
             String[] temp = text.Split(',');
-            text = temp[0];
+            if(temp.Length == 1)
+            {
+                text = temp[0];
+            }
+            else
+            {
+                text = temp[1];
+            }
             return text;
         }
 
