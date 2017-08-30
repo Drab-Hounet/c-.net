@@ -15,16 +15,22 @@ namespace Library
         public String adressApi { get; set; }
 
         public String adressApiTransports = "http://data.metromobilite.fr/api/linesNear/json?x=";
-        public String adressApiLines =      "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
+        public String adressApiLines = "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
+        public Boolean OffLine = false;
+
 
         public List<TransportComplete> GetAllTransportFromJson(Double lng, Double lat, Double dist)
         {
 
             String latString = lat.ToString(CultureInfo.InvariantCulture);
             String lngString = lng.ToString(CultureInfo.InvariantCulture);
-            String json = getJson(adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true");
+            String json = null;
+            if (!OffLine)
+            {
+                json = getJson(adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true");
+            }
 
-            List <Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
+            List<Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
             Utils util = new Utils();
             List<TransportComplete> nameStations = util.getUniqueStationAndAllLines(transports);
 
@@ -48,7 +54,7 @@ namespace Library
             String json = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            
+
             return json;
         }
     }

@@ -5,16 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:windowTransport"
              xmlns:local1="clr-namespace:windowTransport.Model"
-             xmlns:converterColor="clr-namespace:windowTransport.Converter"
-             xmlns:converterSubString="clr-namespace:windowTransport.Converter"
+             xmlns:converters="clr-namespace:windowTransport.Converter"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              xmlns:map="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
              d:DesignHeight="300" d:DesignWidth="400">
 
     <UserControl.Resources>
-        <converterColor:ConverterToColor x:Key="converterToColor" />
-        <converterSubString:Substring x:Key="converterToSubString" />
+        <converters:ConverterToColor x:Key="converterToColor" />
+        <converters:Substring x:Key="converterToSubString" />
+        <converters:MapDoubleClickConverter x:Key="mapDoubleClickConverter"/>
         <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#428bca"/>
         <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#428bca"/>
@@ -40,15 +41,18 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="1">
-            <map:Map CredentialsProvider="At7BYrbmd_F2nC_wXAjk7naEPubFo7ex0t01FOwQULJiLXmVrjT963kXhMSC7n-8" 
-                     Center="{Binding Center, Mode = TwoWay}"
+            <map:Map CredentialsProvider="At7BYrbmd_F2nC_wXAjk7naEPubFo7ex0t01FOwQULJiLXmVrjT963kXhMSC7n-8" Center="45.185697,5.728726"
                      ZoomLevel="15"
                      x:Name="myMap"
                      map:MapLayer.Position="{Binding LocationMap}"
                      MouseDoubleClick="MapWithPushpins_MouseDoubleClick">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding DoubleClickPos}"/>
+                        <mvvm:EventToCommand
+                            Command="{Binding DoubleClickPos, Mode=OneWay}"
+                            EventArgsConverter="{StaticResource mapDoubleClickConverter}"
+                            EventArgsConverterParameter="{Binding ElementName=myMap}"
+                            PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </map:Map>

@@ -24,23 +24,6 @@ namespace windowTransport.ViewModel
 
         private Location center;
 
-        public Location Center
-        {
-            get
-            {
-                return center;
-            }
-
-            set
-            {
-                if (center != value)
-                {
-                    center = value;
-                    RaisePropertyChanged("Center");
-                }
-            }
-        }
-
         private Double lat;
 
         public Double Lat
@@ -140,15 +123,14 @@ namespace windowTransport.ViewModel
         {
             TransportsObservable = null;
             Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
-            Center = new Location(Lat, Longitude);
-
             CallApi(Lat, Longitude, Dist);
         }
 
         public void MapExecute(object obj)
         {
-            Debug.WriteLine("map");
-            CallApi(Center.Latitude, Center.Longitude, 500);
+            Location location = obj as Location;
+            this.Lat = location.Latitude;
+            this.Longitude = location.Longitude;
         }
 
         public ObservableCollection<Transport_model> TransportsObservable
@@ -160,7 +142,6 @@ namespace windowTransport.ViewModel
         public void LoadTransport()
         {
             CallApi(45.185697, 5.728726, 200);
-            Center = new Location(45.263214, 5.647057);
         }
 
         private void CallApi(Double latp, Double longp, Double Distp)
