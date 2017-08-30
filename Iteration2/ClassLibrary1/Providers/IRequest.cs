@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Providers
+namespace Library
 {
     interface IRequest
     {
+        string DoRequest(string adressApi);
     }
 }

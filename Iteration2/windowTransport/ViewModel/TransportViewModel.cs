@@ -22,8 +22,6 @@ namespace windowTransport.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Location center;
-
         private Double lat;
 
         public Double Lat
@@ -78,7 +76,6 @@ namespace windowTransport.ViewModel
                 }
             }
         }
-
 
         private ICommand RelayForm { get; set; }
         private ICommand RelayMap { get; set; }

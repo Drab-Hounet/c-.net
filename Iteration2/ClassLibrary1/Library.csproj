@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="Providers\FakeRequest.cs" />
     <Compile Include="Providers\IRequest.cs" />
+    <Compile Include="Providers\Request.cs" />
     <Compile Include="TransportComplete.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

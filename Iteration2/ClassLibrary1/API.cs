@@ -7,29 +7,28 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Net;
 using System.Globalization;
+using Library.Providers;
 
 namespace Library
 {
     public class API
     {
-        public String adressApi { get; set; }
+        public API()
+        {
+            OffLine = true;
+        }
 
-        public String adressApiTransports = "http://data.metromobilite.fr/api/linesNear/json?x=";
-        public String adressApiLines = "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
-        public Boolean OffLine = false;
+        public static String adressApiTransports = "http://data.metromobilite.fr/api/linesNear/json?x=";
+        public static String adressApiLines = "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
 
+        public Boolean OffLine { get; set; }
 
         public List<TransportComplete> GetAllTransportFromJson(Double lng, Double lat, Double dist)
         {
 
             String latString = lat.ToString(CultureInfo.InvariantCulture);
             String lngString = lng.ToString(CultureInfo.InvariantCulture);
-            String json = null;
-            if (!OffLine)
-            {
-                json = getJson(adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true");
-            }
-
+            String json = GetRequestProvider().DoRequest((adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true"));
             List<Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
             Utils util = new Utils();
             List<TransportComplete> nameStations = util.getUniqueStationAndAllLines(transports);
@@ -39,23 +38,22 @@ namespace Library
 
         public Line GetAllLineFromJson(String line)
         {
-            String json = getJson(adressApiLines + line);
+            IRequest request = GetRequestProvider();
+            String json = request.DoRequest(adressApiLines + line);
             List<Line> lineObject = JsonConvert.DeserializeObject<List<Line>>(json);
             return lineObject.First();
-        }
-
-        private String getJson(String adressApi)
+        }     
+        
+        private IRequest GetRequestProvider()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-            WebRequest request = WebRequest.Create(adressApi);
-            WebResponse response = request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            String json = reader.ReadToEnd();
-            reader.Close();
-            response.Close();
-
-            return json;
+            if (OffLine)
+            {
+                return new FakeRequest();
+            }
+            else
+            {
+                return new Request();
+            }
         }
     }
 }
