@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace Library
             return nameStations;
         }
 
-        public List<TransportComplete> getUniqueStationAndAllLines(List<Transport> transports)
+        public List<TransportComplete> getUniqueStationAndAllLines(IRequest request, List<Transport> transports)
         {
             List<TransportComplete> listOrderByStation = new List<TransportComplete>();
             List<Transport> nameStations = getUniqueStation(transports);
@@ -45,8 +46,7 @@ namespace Library
                         {
                             if (!lines.Contains(line))
                             {
-                                API apiLine = new API();
-                                Line lineObject = apiLine.GetAllLineFromJson(line);
+                                Line lineObject = GetAllLineFromJson(request, line);
                                 linesDetails.Add(lineObject);
                                 lines.Add(line);
                             }
@@ -65,5 +65,11 @@ namespace Library
             return listOrderByStation;
         }
 
+        private Line GetAllLineFromJson(IRequest request, String line)
+        {
+            String json = request.DoRequest(API.adressApiLines + line);
+            List<Line> lineObject = JsonConvert.DeserializeObject<List<Line>>(json);
+            return lineObject.First();
+        }
     }
 }

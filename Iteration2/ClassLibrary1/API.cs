@@ -13,35 +13,51 @@ namespace Library
 {
     public class API
     {
-        public API()
-        {
-            OffLine = true;
-        }
+        private IRequest mRequest;
+        private bool mOffline;
 
         public static String adressApiTransports = "http://data.metromobilite.fr/api/linesNear/json?x=";
         public static String adressApiLines = "https://data.metromobilite.fr/api/routers/default/index/routes?codes=";
 
-        public Boolean OffLine { get; set; }
+        public Boolean OffLine
+        {
+            get
+            {
+                return mOffline;
+            }
 
+            set
+            {
+                if (value != mOffline)
+                {
+                    mOffline = value;
+                    mRequest = GetRequestProvider();
+                }                
+            }
+        }
+
+        public API()
+        {
+            OffLine = false;
+            mRequest = GetRequestProvider();
+        }
+
+        internal API(IRequest request)
+        {
+            mRequest = request;
+        }
+        
         public List<TransportComplete> GetAllTransportFromJson(Double lng, Double lat, Double dist)
         {
             String latString = lat.ToString(CultureInfo.InvariantCulture);
             String lngString = lng.ToString(CultureInfo.InvariantCulture);
-            String json = GetRequestProvider().DoRequest((adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true"));
+            String json = mRequest.DoRequest((adressApiTransports + latString + "&y=" + lngString + "&dist=" + dist + "&details=true"));
             List<Transport> transports = JsonConvert.DeserializeObject<List<Transport>>(json);
             Utils util = new Utils();
-            List<TransportComplete> nameStations = util.getUniqueStationAndAllLines(transports);
+            List<TransportComplete> nameStations = util.getUniqueStationAndAllLines(mRequest, transports);
 
             return nameStations;
-        }
-
-        public Line GetAllLineFromJson(String line)
-        {
-            IRequest request = GetRequestProvider();
-            String json = request.DoRequest(adressApiLines + line);
-            List<Line> lineObject = JsonConvert.DeserializeObject<List<Line>>(json);
-            return lineObject.First();
-        }     
+        }            
         
         private IRequest GetRequestProvider()
         {

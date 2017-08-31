@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    interface IRequest
+    public interface IRequest
     {
         string DoRequest(string adressApi);
     }
