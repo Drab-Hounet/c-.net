@@ -30,7 +30,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
@@ -44,7 +44,6 @@
             <map:Map CredentialsProvider="At7BYrbmd_F2nC_wXAjk7naEPubFo7ex0t01FOwQULJiLXmVrjT963kXhMSC7n-8" Center="45.185697,5.728726"
                      ZoomLevel="15"
                      x:Name="myMap"
-                     map:MapLayer.Position="{Binding LocationMap}"
                      MouseDoubleClick="MapWithPushpins_MouseDoubleClick">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -55,10 +54,18 @@
                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <map:MapItemsControl ItemsSource = "{Binding TransportsObservable}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <map:Pushpin Location= "{Binding LocationStation}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </map:MapItemsControl>
+                <map:Pushpin Location= "{Binding SelectedLocation}" Background="Blue"/>
             </map:Map>
             <Border Background="Black" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.8" BorderBrush="White" BorderThickness="2" CornerRadius="5">
-                    <StackPanel x:Name="eventsPanel" IsHitTestVisible="False" Canvas.Left="0" Canvas.Top="0"/>
-                </Border>
+                <StackPanel x:Name="eventsPanel" IsHitTestVisible="False" Canvas.Left="0" Canvas.Top="0"/>
+            </Border>
         </Grid>
 
         <StackPanel Orientation = "Vertical" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="Black">
@@ -74,11 +81,12 @@
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="10,10,0,10">
             <TextBlock TextWrapping="Wrap" Text="Latitude: " Foreground="{DynamicResource MaterialDesignBody}"/>
-            <TextBox x:Name="Latitude" Text="{Binding Lat}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}"/>
+            <TextBox x:Name="Latitude" Text="{Binding Latitude}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}"/>
             <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="Longitude " Foreground="{DynamicResource MaterialDesignBody}" />
             <TextBox x:Name="Longitude" Text="{Binding Longitude}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}" />
             <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="Distance : " Foreground="{DynamicResource MaterialDesignBody}"/>
             <TextBox x:Name="Distance" Text="{Binding Dist}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}"/>
+            <CheckBox x:Name="OffLine" Margin="0,10,0,0"  IsChecked="{Binding Path = OffLine}" Content="Offline" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment ="Right">
                 <Button Command="{Binding ValidationForm}" Margin="0,10,0,0" Content="Validation" Style="{DynamicResource MaterialDesignRaisedDarkButton}"/>
             </StackPanel>
@@ -92,7 +100,6 @@
                         <DataTemplate>
                             <StackPanel Orientation = "Horizontal" >
                                 <TextBlock  Text = "{Binding Name, Converter={StaticResource converterToSubString}}" Width = "250" Margin = "10 0 0 0" FontWeight="Bold" FontSize="14"/>
-                                <TextBlock  Text = "{Binding Lat}" Width = "250" Margin = "10 0 0 0" FontWeight="Bold" FontSize="14"/>
                                 <ItemsControl ItemsSource = "{Binding ListLines}" Margin="10 30 30 5">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>

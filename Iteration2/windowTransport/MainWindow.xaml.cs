@@ -29,8 +29,6 @@ namespace windowTransport
         private void TransportViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             windowTransport.ViewModel.TransportViewModel transportViewModelObject = new windowTransport.ViewModel.TransportViewModel();
-            transportViewModelObject.LoadTransport();
-
             TransportViewControl.DataContext = transportViewModelObject;
         }              
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Library;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace windowTransport.Model
 {
@@ -12,8 +13,9 @@ namespace windowTransport.Model
     {
         private String name;
         private List<Line> listLines;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private Location locationStation;
+        private Double trLatitude;
+        private Double trLongitude;
 
         public String Name
         {
@@ -28,6 +30,48 @@ namespace windowTransport.Model
                 {
                     name = value;
                     RaisePropertyChanged("Name");
+                }
+            }
+        }
+
+        public Double TrLatitude
+        {
+            get
+            {
+                return trLatitude;
+            }
+
+            set
+            {
+                if (trLatitude != value)
+                {
+                    trLatitude = value;
+                    RaisePropertyChanged("TrLatitude");
+                }
+            }
+        }
+
+        public Location LocationStation
+        {
+            get
+            {
+                return new Location(TrLatitude, TrLongitude);
+            }            
+        }
+
+        public Double TrLongitude
+        {
+            get
+            {
+                return trLongitude;
+            }
+
+            set
+            {
+                if (trLongitude != value)
+                {
+                    trLongitude = value;
+                    RaisePropertyChanged("TrLongitude");
                 }
             }
         }
@@ -49,6 +93,8 @@ namespace windowTransport.Model
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void RaisePropertyChanged(string property)
         {
             if (PropertyChanged != null)
@@ -57,5 +103,4 @@ namespace windowTransport.Model
             }
         }
     }
-
 }

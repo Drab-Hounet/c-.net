@@ -16,50 +16,96 @@ namespace windowTransport.ViewModel
 {
     class TransportViewModel : INotifyPropertyChanged
     {
-        public List<TransportComplete> listTransports;
-        public API api = new API();
-        public ObservableCollection<Transport_model> transports = new ObservableCollection<Transport_model>();
+        private List<TransportComplete> listTransports;
+        private API api;
+        private ObservableCollection<Transport_model> transports;
+
+        public TransportViewModel()
+        {
+            api = new API();
+            transports = new ObservableCollection<Transport_model>();
+            DoubleClickPos = new RelayCommand(MapExecute);
+            ValidationForm = new RelayCommand(FormExecute);
+
+            SelectedLocation = new Location(45.185697, 5.728726);
+            Dist = 500;
+            CallApi();
+        }
+
+        public void FormExecute(object obj)
+        {
+            TransportsObservable = null;
+            SelectedLocation = new Location(Latitude, Longitude);
+            CallApi();
+        }
+
+        public void MapExecute(object obj)
+        {
+            SelectedLocation = obj as Location;
+            CallApi();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Double lat;
+        #region Public Properties
 
-        public Double Lat
+        private Boolean offLine;
+        public Boolean OffLine
         {
             get
             {
-                return lat;
+                return offLine;
             }
 
             set
             {
-                if (lat != value)
+                if (offLine != value)
                 {
-                    lat = value;
-                    RaisePropertyChanged("Lat");
+                    offLine = value;
+                    RaisePropertyChanged("OffLine");
                 }
             }
         }
-        private Double lon;
 
+        private Double latitude;
+        public Double Latitude
+        {
+            get
+            {
+                return latitude;
+            }
+
+            set
+            {
+                if (latitude != value)
+                {
+                    latitude = value;
+                    SelectedLocation.Latitude = Latitude;
+                    RaisePropertyChanged("Latitude");
+                }
+            }
+        }
+
+        private Double longitude;
         public Double Longitude
         {
             get
             {
-                return lon;
+                return longitude;
             }
 
             set
             {
-                if (lon != value)
+                if (longitude != value)
                 {
-                    lon = value;
+                    longitude = value;
+                    SelectedLocation.Longitude = Longitude;
                     RaisePropertyChanged("Longitude");
                 }
             }
         }
-        private Double dist;
 
+        private Double dist;
         public Double Dist
         {
             get
@@ -77,56 +123,23 @@ namespace windowTransport.ViewModel
             }
         }
 
-        private ICommand RelayForm { get; set; }
-        private ICommand RelayMap { get; set; }
-
-        public TransportViewModel()
-        {
-            RelayMap = new RelayCommand(MapExecute);
-            RelayForm = new RelayCommand(FormExecute);
-        }
-
-        public bool CanExecute
+        private Location selectedLocation;
+        public Location SelectedLocation
         {
             get
             {
-                return true;
+                return selectedLocation;
             }
-
-            set { }
-        }
-
-        public ICommand ValidationForm
-        {
-            get
+            set
             {
-                return RelayForm;
+                if (selectedLocation != value)
+                {
+                    selectedLocation = value;
+                    Latitude = selectedLocation.Latitude;
+                    Longitude = selectedLocation.Longitude;
+                    RaisePropertyChanged("SelectedLocation");
+                }
             }
-            set { }
-        }
-
-        public ICommand DoubleClickPos
-        {
-            get
-            {
-                return RelayMap;
-            }
-            set { }
-        }
-
-        public void FormExecute(object obj)
-        {
-            TransportsObservable = null;
-            Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
-            CallApi(Lat, Longitude, Dist);
-        }
-
-        public void MapExecute(object obj)
-        {
-            Location location = obj as Location;
-            Lat = location.Latitude;
-            Longitude = location.Longitude;
-            CallApi(Lat, Longitude, 300);
         }
 
         public ObservableCollection<Transport_model> TransportsObservable
@@ -135,26 +148,32 @@ namespace windowTransport.ViewModel
             set;
         }
 
-        public void LoadTransport()
-        {
-            CallApi(45.185697, 5.728726, 200);
-        }
+        #endregion
 
-        private void CallApi(Double latp, Double longp, Double Distp)
+        #region Commands
+
+        public ICommand ValidationForm { get; private set; }
+
+        public ICommand DoubleClickPos { get; private set; }
+
+        #endregion
+
+        #region private methods
+
+        private void CallApi()
         {
-            Lat = latp;
-            Longitude = longp;
-            Dist = Distp;
             TransportsObservable = null;
-            Debug.WriteLine(Lat + " " + Longitude + " " + Dist);
+            api.OffLine = OffLine;
 
-            listTransports = api.GetAllTransportFromJson(Lat, Longitude, Dist);
+            listTransports = api.GetAllTransportFromJson(SelectedLocation.Latitude, SelectedLocation.Longitude, Dist);
 
             transports.Clear();
             foreach (TransportComplete tsprt in listTransports)
             {
-                transports.Add(new Transport_model { Name = tsprt.Name, ListLines = tsprt.LinesDetails });
+                transports.Add(new Transport_model { Name = tsprt.Name, TrLatitude = tsprt.Lat, TrLongitude = tsprt.Lon, ListLines = tsprt.LinesDetails });
+
             }
+
             TransportsObservable = transports;
         }
 
@@ -165,5 +184,7 @@ namespace windowTransport.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
+
+        #endregion
     }
 }

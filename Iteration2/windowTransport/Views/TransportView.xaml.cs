@@ -16,7 +16,7 @@ namespace windowTransport.Views
     public partial class TransportView : UserControl
     {
         Dictionary<string, int> eventCount = new Dictionary<string, int>();
-        Dictionary<string, TextBlock> eventBlocks = new Dictionary<string, TextBlock>();
+        //Dictionary<string, TextBlock> eventBlocks = new Dictionary<string, TextBlock>();
         public String LatGpsMap;
 
         public TransportView()
@@ -25,8 +25,8 @@ namespace windowTransport.Views
             //Set focus on map
             myMap.Focus();
 
-            myMap.MouseLeftButtonDown +=
-                new MouseButtonEventHandler(MapWithEvents_MouseLeftButtonDown);
+            //myMap.MouseLeftButtonDown +=
+            //    new MouseButtonEventHandler(MapWithEvents_MouseLeftButtonDown);
             //myMap.MouseLeftButtonUp +=
             //    new MouseButtonEventHandler(MapWithEvents_MouseLeftButtonUp);
         }
@@ -36,32 +36,32 @@ namespace windowTransport.Views
         //    ShowEvent("MapWithEvents_MouseLeftButtonUp");
         //}
 
-        void MapWithEvents_MouseLeftButtonDown(object sender, MouseEventArgs e)
-        {
-            // Updates the count of mouse pans.
-            ShowEvent("MapWithEvents_MouseLeftButtonDown");
-        }
+        //void MapWithEvents_MouseLeftButtonDown(object sender, MouseEventArgs e)
+        //{
+        //    // Updates the count of mouse pans.
+        //    ShowEvent("MapWithEvents_MouseLeftButtonDown");
+        //}
 
-        void ShowEvent(string eventName)
-        {
-            // Updates the display box showing the number of times 
-            // the wired events occured.
-            if (!eventBlocks.ContainsKey(eventName))
-            {
-                TextBlock tb = new TextBlock();
-                tb.Foreground = new SolidColorBrush(
-                    Color.FromArgb(255, 128, 255, 128));
-                tb.Margin = new Thickness(5);
-                eventBlocks.Add(eventName, tb);
-                eventCount.Add(eventName, 0);
-                eventsPanel.Children.Add(tb);
-            }
+        //void ShowEvent(string eventName)
+        //{
+        //    // Updates the display box showing the number of times 
+        //    // the wired events occured.
+        //    if (!eventBlocks.ContainsKey(eventName))
+        //    {
+        //        TextBlock tb = new TextBlock();
+        //        tb.Foreground = new SolidColorBrush(
+        //            Color.FromArgb(255, 128, 255, 128));
+        //        tb.Margin = new Thickness(5);
+        //        eventBlocks.Add(eventName, tb);
+        //        eventCount.Add(eventName, 0);
+        //        eventsPanel.Children.Add(tb);
+        //    }
 
-            eventCount[eventName]++;
-            eventBlocks[eventName].Text = String.Format(
-                "{0} - {1} - {2}",
-                eventName, eventCount[eventName].ToString(), LatGpsMap);
-        }
+        //    eventCount[eventName]++;
+        //    eventBlocks[eventName].Text = String.Format(
+        //        "{0} - {1} - {2}",
+        //        eventName, eventCount[eventName].ToString(), LatGpsMap);
+        //}
      
         
 
