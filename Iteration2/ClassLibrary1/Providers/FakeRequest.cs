@@ -12,7 +12,7 @@ namespace Library.Providers
         {
             if (adressApi.Contains(API.adressApiLines))
             {
-                return @"[{""id"": ""SEM: 12"",""shortName"": ""12"",""longName"": ""Adrien ta gueule / Saint-Martin-d'Hères Les Alloves"", ""color"": ""0f9930"",""textColor"": ""FFFFFF"",""mode"": ""BUS"",""type"": ""PROXIMO""}]";
+                return @"[{""id"": ""SEM: 12"",""shortName"": ""12"",""longName"": ""Fontanil Cornillon"", ""color"": ""00868b"",""textColor"": ""FFFFFF"",""mode"": ""BUS"",""type"": ""PROXIMO""}]";
             }
             else if (adressApi.Contains(API.adressApiTransports))
             {

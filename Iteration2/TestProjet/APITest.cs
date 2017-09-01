@@ -33,11 +33,16 @@ namespace TestProjet
                                                                                                 type: ""type""}]");
             List<TransportComplete> transports = api.GetAllTransportFromJson(10, 10, 10);
             Assert.AreEqual("nameToTest", transports.First().Name);
-            Assert.AreEqual(1, transports.First().LinesDetails.Count);
+            Assert.AreEqual(2, transports.First().LinesDetails.Count);
             factory.VerifyAllExpectationsHaveBeenMet();
         }
 
-        [TestMethod]
+
+
+
+
+
+        //[TestMethod]
         public void GetAllTransportFromJson_should_return_name_of_the_station_and_one_line_when_json_contain_just_one_line1()
         {
             var mock = factory.CreateMock<IRequest>();
