@@ -79,6 +79,7 @@ Le transfert de la Vue avec le Vue - Modèle est appelé le _DataBinding_ est pe
 **XAML** est un langage d'interface utilisateur graphique universel pour les applications Web riches (RIA) et les logiciels de bureau. Il utilise un format **XML** facile à éditer et à réutiliser.
 
 ##### Exemple
+
 ```xml
 <windows
     Width="600" Height="480" Text="Mon Programme">
@@ -90,14 +91,13 @@ Le transfert de la Vue avec le Vue - Modèle est appelé le _DataBinding_ est pe
          Fermer
     </Button>
   </FlowPanel>
-</windows> ```
+</windows>
+```
 
 #### Le test unitaire
 
 Utilisation de la librairie nMock
 
 [Liste des Fonctions de nMock](https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwj61IrSyYPWAhUFWxQKHQohA80QFggtMAA&url=http%3A%2F%2Fcouvertstesting.blob.core.windows.net%2Fmenukaarten%2F2012%2F10%2F25%2F420679ec94ff810d88942155fa2f788e-NMock3CheatSheet.pdf&usg=AFQjCNGDIbvI9lQt1zMTEx35NuTCahZYFA)
-
-
 
 ![sMVVM](https://image.slidesharecdn.com/ravikumaronlinehotelbooking-140628072246-phpapp02/95/ravi-rana-hotel-management-ppt-7-638.jpg?cb=1403941005)
